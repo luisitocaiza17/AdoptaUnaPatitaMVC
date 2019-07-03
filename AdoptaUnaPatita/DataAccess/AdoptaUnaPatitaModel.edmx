@@ -1,0 +1,780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AdoptaUnaPatitaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="50" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="15" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Celular" Type="varchar" MaxLength="15" />
+          <Property Name="Direccion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="EntidadUsuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEntidad" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mascota">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoAnimal" Type="int" Nullable="false" />
+          <Property Name="IdSexo" Type="int" Nullable="false" />
+          <Property Name="IdTamanio" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Raza" Type="varchar" MaxLength="150" />
+          <Property Name="Detalle" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="MascotaSolicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMascota" Type="int" Nullable="false" />
+          <Property Name="IDSolicitud" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MascotaUsuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdMascota" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSolicitante" Type="int" Nullable="false" />
+          <Property Name="IdColaborador" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="50" />
+          <Property Name="Razon" Type="varchar(max)" />
+          <Property Name="AceptoTerminos" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tamanio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TipoAnimal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Contrasenia" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_EntidadUsuario_Entidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="EntidadUsuario" Type="Self.EntidadUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntidadUsuario">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="EntidadUsuario" Type="Self.EntidadUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntidadUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_Sexo">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_Tamanio">
+          <End Role="Tamanio" Type="Self.Tamanio" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamanio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdTamanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_TipoAnimal">
+          <End Role="TipoAnimal" Type="Self.TipoAnimal" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAnimal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdTipoAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaSolicitud_Mascota">
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="1" />
+          <End Role="MascotaSolicitud" Type="Self.MascotaSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaSolicitud">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaSolicitud_Solicitud">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+          <End Role="MascotaSolicitud" Type="Self.MascotaSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaSolicitud">
+              <PropertyRef Name="IDSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaUsuario_Mascota">
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="1" />
+          <End Role="MascotaUsuario" Type="Self.MascotaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaUsuario">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaUsuario_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="MascotaUsuario" Type="Self.MascotaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_Entidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_Solicitud">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdoptaUnaPatitaModelStoreContainer">
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntidadUsuario" EntityType="Self.EntidadUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mascota" EntityType="Self.Mascota" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MascotaSolicitud" EntityType="Self.MascotaSolicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MascotaUsuario" EntityType="Self.MascotaUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tamanio" EntityType="Self.Tamanio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoAnimal" EntityType="Self.TipoAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EntidadUsuario_Entidad" Association="Self.FK_EntidadUsuario_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadUsuario" EntitySet="EntidadUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadUsuario_Usuario" Association="Self.FK_EntidadUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadUsuario" EntitySet="EntidadUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_Sexo" Association="Self.FK_Mascota_Sexo">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_Tamanio" Association="Self.FK_Mascota_Tamanio">
+            <End Role="Tamanio" EntitySet="Tamanio" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_TipoAnimal" Association="Self.FK_Mascota_TipoAnimal">
+            <End Role="TipoAnimal" EntitySet="TipoAnimal" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaSolicitud_Mascota" Association="Self.FK_MascotaSolicitud_Mascota">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="MascotaSolicitud" EntitySet="MascotaSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaSolicitud_Solicitud" Association="Self.FK_MascotaSolicitud_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="MascotaSolicitud" EntitySet="MascotaSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaUsuario_Mascota" Association="Self.FK_MascotaUsuario_Mascota">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="MascotaUsuario" EntitySet="MascotaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaUsuario_Usuario" Association="Self.FK_MascotaUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MascotaUsuario" EntitySet="MascotaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_Entidad" Association="Self.FK_Solicitud_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_Solicitud" Association="Self.FK_Solicitud_Solicitud">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdoptaUnaPatitaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Entidad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK_Solicitud_Entidad" FromRole="Entidad" ToRole="Solicitud" />
+          <NavigationProperty Name="Solicitud1" Relationship="Self.FK_Solicitud_Solicitud" FromRole="Entidad" ToRole="Solicitud" />
+          <NavigationProperty Name="EntidadUsuario" Relationship="AdoptaUnaPatitaModel.FK_EntidadUsuario_Entidad" FromRole="Entidad" ToRole="EntidadUsuario" />
+        </EntityType>
+        <EntityType Name="Mascota">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoAnimal" Type="Int32" Nullable="false" />
+          <Property Name="IdSexo" Type="Int32" Nullable="false" />
+          <Property Name="IdTamanio" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Raza" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Detalle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK_Mascota_Sexo" FromRole="Mascota" ToRole="Sexo" />
+          <NavigationProperty Name="Tamanio" Relationship="Self.FK_Mascota_Tamanio" FromRole="Mascota" ToRole="Tamanio" />
+          <NavigationProperty Name="TipoAnimal" Relationship="Self.FK_Mascota_TipoAnimal" FromRole="Mascota" ToRole="TipoAnimal" />
+          <NavigationProperty Name="MascotaSolicitud" Relationship="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Mascota" FromRole="Mascota" ToRole="MascotaSolicitud" />
+          <NavigationProperty Name="MascotaUsuario" Relationship="AdoptaUnaPatitaModel.FK_MascotaUsuario_Mascota" FromRole="Mascota" ToRole="MascotaUsuario" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mascota" Relationship="Self.FK_Mascota_Sexo" FromRole="Sexo" ToRole="Mascota" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSolicitante" Type="Int32" Nullable="false" />
+          <Property Name="IdColaborador" Type="Int32" Nullable="false" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Razon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AceptoTerminos" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="Self.FK_Solicitud_Entidad" FromRole="Solicitud" ToRole="Entidad" />
+          <NavigationProperty Name="Entidad1" Relationship="Self.FK_Solicitud_Solicitud" FromRole="Solicitud" ToRole="Entidad" />
+          <NavigationProperty Name="MascotaSolicitud" Relationship="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Solicitud" FromRole="Solicitud" ToRole="MascotaSolicitud" />
+        </EntityType>
+        <EntityType Name="Tamanio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mascota" Relationship="Self.FK_Mascota_Tamanio" FromRole="Tamanio" ToRole="Mascota" />
+        </EntityType>
+        <EntityType Name="TipoAnimal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mascota" Relationship="Self.FK_Mascota_TipoAnimal" FromRole="TipoAnimal" ToRole="Mascota" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="EntidadUsuario" Relationship="AdoptaUnaPatitaModel.FK_EntidadUsuario_Usuario" FromRole="Usuario" ToRole="EntidadUsuario" />
+          <NavigationProperty Name="MascotaUsuario" Relationship="AdoptaUnaPatitaModel.FK_MascotaUsuario_Usuario" FromRole="Usuario" ToRole="MascotaUsuario" />
+        </EntityType>
+        <Association Name="FK_Solicitud_Entidad">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdSolicitante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_Solicitud">
+          <End Role="Entidad" Type="Self.Entidad" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_Sexo">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdSexo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_Tamanio">
+          <End Role="Tamanio" Type="Self.Tamanio" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamanio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdTamanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mascota_TipoAnimal">
+          <End Role="TipoAnimal" Type="Self.TipoAnimal" Multiplicity="1" />
+          <End Role="Mascota" Type="Self.Mascota" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAnimal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mascota">
+              <PropertyRef Name="IdTipoAnimal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdoptaUnaPatitaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Entidad" EntityType="Self.Entidad" />
+          <EntitySet Name="Mascota" EntityType="Self.Mascota" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+          <EntitySet Name="Tamanio" EntityType="Self.Tamanio" />
+          <EntitySet Name="TipoAnimal" EntityType="Self.TipoAnimal" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Solicitud_Entidad" Association="Self.FK_Solicitud_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_Solicitud" Association="Self.FK_Solicitud_Solicitud">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_Sexo" Association="Self.FK_Mascota_Sexo">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_Tamanio" Association="Self.FK_Mascota_Tamanio">
+            <End Role="Tamanio" EntitySet="Tamanio" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mascota_TipoAnimal" Association="Self.FK_Mascota_TipoAnimal">
+            <End Role="TipoAnimal" EntitySet="TipoAnimal" />
+            <End Role="Mascota" EntitySet="Mascota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="EntidadUsuario" EntityType="AdoptaUnaPatitaModel.EntidadUsuario" />
+          <AssociationSet Name="FK_EntidadUsuario_Entidad" Association="AdoptaUnaPatitaModel.FK_EntidadUsuario_Entidad">
+            <End Role="Entidad" EntitySet="Entidad" />
+            <End Role="EntidadUsuario" EntitySet="EntidadUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntidadUsuario_Usuario" Association="AdoptaUnaPatitaModel.FK_EntidadUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="EntidadUsuario" EntitySet="EntidadUsuario" />
+          </AssociationSet>
+          <EntitySet Name="MascotaSolicitud" EntityType="AdoptaUnaPatitaModel.MascotaSolicitud" />
+          <AssociationSet Name="FK_MascotaSolicitud_Mascota" Association="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Mascota">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="MascotaSolicitud" EntitySet="MascotaSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaSolicitud_Solicitud" Association="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Solicitud">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="MascotaSolicitud" EntitySet="MascotaSolicitud" />
+          </AssociationSet>
+          <EntitySet Name="MascotaUsuario" EntityType="AdoptaUnaPatitaModel.MascotaUsuario" />
+          <AssociationSet Name="FK_MascotaUsuario_Mascota" Association="AdoptaUnaPatitaModel.FK_MascotaUsuario_Mascota">
+            <End Role="Mascota" EntitySet="Mascota" />
+            <End Role="MascotaUsuario" EntitySet="MascotaUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MascotaUsuario_Usuario" Association="AdoptaUnaPatitaModel.FK_MascotaUsuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="MascotaUsuario" EntitySet="MascotaUsuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EntidadUsuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entidad" Relationship="AdoptaUnaPatitaModel.FK_EntidadUsuario_Entidad" FromRole="EntidadUsuario" ToRole="Entidad" />
+          <NavigationProperty Name="Usuario" Relationship="AdoptaUnaPatitaModel.FK_EntidadUsuario_Usuario" FromRole="EntidadUsuario" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_EntidadUsuario_Entidad">
+          <End Type="AdoptaUnaPatitaModel.Entidad" Role="Entidad" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.EntidadUsuario" Role="EntidadUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entidad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntidadUsuario">
+              <PropertyRef Name="IdEntidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntidadUsuario_Usuario">
+          <End Type="AdoptaUnaPatitaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.EntidadUsuario" Role="EntidadUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EntidadUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MascotaSolicitud">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMascota" Type="Int32" Nullable="false" />
+          <Property Name="IDSolicitud" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mascota" Relationship="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Mascota" FromRole="MascotaSolicitud" ToRole="Mascota" />
+          <NavigationProperty Name="Solicitud" Relationship="AdoptaUnaPatitaModel.FK_MascotaSolicitud_Solicitud" FromRole="MascotaSolicitud" ToRole="Solicitud" />
+        </EntityType>
+        <Association Name="FK_MascotaSolicitud_Mascota">
+          <End Type="AdoptaUnaPatitaModel.Mascota" Role="Mascota" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.MascotaSolicitud" Role="MascotaSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaSolicitud">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaSolicitud_Solicitud">
+          <End Type="AdoptaUnaPatitaModel.Solicitud" Role="Solicitud" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.MascotaSolicitud" Role="MascotaSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaSolicitud">
+              <PropertyRef Name="IDSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MascotaUsuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdMascota" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mascota" Relationship="AdoptaUnaPatitaModel.FK_MascotaUsuario_Mascota" FromRole="MascotaUsuario" ToRole="Mascota" />
+          <NavigationProperty Name="Usuario" Relationship="AdoptaUnaPatitaModel.FK_MascotaUsuario_Usuario" FromRole="MascotaUsuario" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_MascotaUsuario_Mascota">
+          <End Type="AdoptaUnaPatitaModel.Mascota" Role="Mascota" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.MascotaUsuario" Role="MascotaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascota">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaUsuario">
+              <PropertyRef Name="IdMascota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MascotaUsuario_Usuario">
+          <End Type="AdoptaUnaPatitaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="AdoptaUnaPatitaModel.MascotaUsuario" Role="MascotaUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MascotaUsuario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdoptaUnaPatitaModelStoreContainer" CdmEntityContainer="AdoptaUnaPatitaEntities">
+          <EntitySetMapping Name="Entidad">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Entidad">
+              <MappingFragment StoreEntitySet="Entidad">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mascota">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Mascota">
+              <MappingFragment StoreEntitySet="Mascota">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdTipoAnimal" ColumnName="IdTipoAnimal" />
+                <ScalarProperty Name="IdSexo" ColumnName="IdSexo" />
+                <ScalarProperty Name="IdTamanio" ColumnName="IdTamanio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Raza" ColumnName="Raza" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdSolicitante" ColumnName="IdSolicitante" />
+                <ScalarProperty Name="IdColaborador" ColumnName="IdColaborador" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Razon" ColumnName="Razon" />
+                <ScalarProperty Name="AceptoTerminos" ColumnName="AceptoTerminos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tamanio">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Tamanio">
+              <MappingFragment StoreEntitySet="Tamanio">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoAnimal">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.TipoAnimal">
+              <MappingFragment StoreEntitySet="TipoAnimal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntidadUsuario">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.EntidadUsuario">
+              <MappingFragment StoreEntitySet="EntidadUsuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MascotaSolicitud">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.MascotaSolicitud">
+              <MappingFragment StoreEntitySet="MascotaSolicitud">
+                <ScalarProperty Name="IDSolicitud" ColumnName="IDSolicitud" />
+                <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MascotaUsuario">
+            <EntityTypeMapping TypeName="AdoptaUnaPatitaModel.MascotaUsuario">
+              <MappingFragment StoreEntitySet="MascotaUsuario">
+                <ScalarProperty Name="IdMascota" ColumnName="IdMascota" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,82 @@
+﻿@model AdoptaUnaPatita.DataAccess.Mascota
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Mascota</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaNacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaNacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sexo)<!--Solo le dejo el nombre de la tabla para que aparezca en vez del Id-->
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sexo.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tamanio)<!--Solo le dejo el nombre de la tabla para que aparezca en vez del Id-->
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tamanio.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoAnimal)<!--Solo le dejo el nombre de la tabla para que aparezca en vez del Id-->
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoAnimal.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

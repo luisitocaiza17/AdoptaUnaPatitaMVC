@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AdoptaUnaPatita.DataAccess.Solicitud>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Razon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AceptoTerminos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entidad1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Razon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AceptoTerminos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entidad.Nombres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entidad1.Nombres)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

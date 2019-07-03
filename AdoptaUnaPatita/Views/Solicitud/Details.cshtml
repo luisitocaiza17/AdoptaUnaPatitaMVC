@@ -1,0 +1,58 @@
+﻿@model AdoptaUnaPatita.DataAccess.Solicitud
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Solicitud</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Razon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Razon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AceptoTerminos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AceptoTerminos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entidad.Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entidad1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entidad1.Nombres)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

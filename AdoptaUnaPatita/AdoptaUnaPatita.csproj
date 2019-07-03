@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,7 +128,66 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EntidadController.cs" />
+    <Compile Include="Controllers\EntidadUsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MascotaController.cs" />
+    <Compile Include="Controllers\MascotaSolicitudController.cs" />
+    <Compile Include="Controllers\MascotaUsuarioController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\SexoesController.cs" />
+    <Compile Include="Controllers\SolicitudController.cs" />
+    <Compile Include="Controllers\TamanioController.cs" />
+    <Compile Include="Controllers\TipoAnimalController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DataAccess\AdoptaUnaPatitaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdoptaUnaPatitaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AdoptaUnaPatitaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AdoptaUnaPatitaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdoptaUnaPatitaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Entidad.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EntidadUsuario.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Mascota.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MascotaSolicitud.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\MascotaUsuario.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Rol.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Sexo.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Solicitud.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Tamanio.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\TipoAnimal.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Usuario.cs">
+      <DependentUpon>AdoptaUnaPatitaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -131,12 +198,29 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DataAccess\AdoptaUnaPatitaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AdoptaUnaPatitaModel.Context.cs</LastGenOutput>
+      <DependentUpon>AdoptaUnaPatitaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataAccess\AdoptaUnaPatitaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AdoptaUnaPatitaModel.edmx</DependentUpon>
+      <LastGenOutput>AdoptaUnaPatitaModel.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="DataAccess\AdoptaUnaPatitaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AdoptaUnaPatitaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataAccess\AdoptaUnaPatitaModel.edmx.diagram">
+      <DependentUpon>AdoptaUnaPatitaModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -162,6 +246,61 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Entidad\Create.cshtml" />
+    <Content Include="Views\Entidad\Delete.cshtml" />
+    <Content Include="Views\Entidad\Details.cshtml" />
+    <Content Include="Views\Entidad\Edit.cshtml" />
+    <Content Include="Views\Entidad\Index.cshtml" />
+    <Content Include="Views\Mascota\Create.cshtml" />
+    <Content Include="Views\Mascota\Delete.cshtml" />
+    <Content Include="Views\Mascota\Details.cshtml" />
+    <Content Include="Views\Mascota\Edit.cshtml" />
+    <Content Include="Views\Mascota\Index.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Delete.cshtml" />
+    <Content Include="Views\Rol\Details.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Sexoes\Create.cshtml" />
+    <Content Include="Views\Sexoes\Delete.cshtml" />
+    <Content Include="Views\Sexoes\Details.cshtml" />
+    <Content Include="Views\Sexoes\Edit.cshtml" />
+    <Content Include="Views\Sexoes\Index.cshtml" />
+    <Content Include="Views\Solicitud\Create.cshtml" />
+    <Content Include="Views\Solicitud\Delete.cshtml" />
+    <Content Include="Views\Solicitud\Details.cshtml" />
+    <Content Include="Views\Solicitud\Edit.cshtml" />
+    <Content Include="Views\Solicitud\Index.cshtml" />
+    <Content Include="Views\Tamanio\Create.cshtml" />
+    <Content Include="Views\Tamanio\Delete.cshtml" />
+    <Content Include="Views\Tamanio\Details.cshtml" />
+    <Content Include="Views\Tamanio\Edit.cshtml" />
+    <Content Include="Views\Tamanio\Index.cshtml" />
+    <Content Include="Views\TipoAnimal\Create.cshtml" />
+    <Content Include="Views\TipoAnimal\Delete.cshtml" />
+    <Content Include="Views\TipoAnimal\Details.cshtml" />
+    <Content Include="Views\TipoAnimal\Edit.cshtml" />
+    <Content Include="Views\TipoAnimal\Index.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\EntidadUsuario\Create.cshtml" />
+    <Content Include="Views\EntidadUsuario\Delete.cshtml" />
+    <Content Include="Views\EntidadUsuario\Details.cshtml" />
+    <Content Include="Views\EntidadUsuario\Edit.cshtml" />
+    <Content Include="Views\EntidadUsuario\Index.cshtml" />
+    <Content Include="Views\MascotaSolicitud\Create.cshtml" />
+    <Content Include="Views\MascotaSolicitud\Delete.cshtml" />
+    <Content Include="Views\MascotaSolicitud\Details.cshtml" />
+    <Content Include="Views\MascotaSolicitud\Edit.cshtml" />
+    <Content Include="Views\MascotaSolicitud\Index.cshtml" />
+    <Content Include="Views\MascotaUsuario\Create.cshtml" />
+    <Content Include="Views\MascotaUsuario\Delete.cshtml" />
+    <Content Include="Views\MascotaUsuario\Details.cshtml" />
+    <Content Include="Views\MascotaUsuario\Edit.cshtml" />
+    <Content Include="Views\MascotaUsuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -179,6 +318,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
