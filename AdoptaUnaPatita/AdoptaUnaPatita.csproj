@@ -212,6 +212,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\images.jpg" />
+    <Content Include="Images\Perrita-testifica-en-juicio-contra-su-dueña.jpg" />
+    <Content Include="Images\perrito1-800x500.jpg" />
+    <Content Include="Images\perro-huesos01.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="DataAccess\AdoptaUnaPatitaModel.edmx">

@@ -11,7 +11,8 @@ namespace AdoptaUnaPatita.DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +21,13 @@ namespace AdoptaUnaPatita.DataAccess
             this.EntidadUsuario = new HashSet<EntidadUsuario>();
             this.MascotaUsuario = new HashSet<MascotaUsuario>();
         }
-    
+
         public int Id { get; set; }
         public Nullable<int> IdRol { get; set; }
+        [Required(ErrorMessage = "El nombre es Necesario")]
         public string Nombre { get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "La contraseña es Necesaria")]
         public string Contrasenia { get; set; }
     
         public virtual Rol Rol { get; set; }
